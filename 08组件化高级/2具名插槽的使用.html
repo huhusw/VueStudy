@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 不给名字属性的话，找不到替换的插槽 -->
+			<cpn><button type="button">按钮</button></cpn>
+			<!-- 指定name以后才能将具体的插槽替换 -->
+			<cpn><button type="button" slot="left">按钮</button></cpn>
+		</div>
+		<template id="cpns">
+			<div >
+				<h2>我是子组件</h2>
+				<!-- 多个插槽的情况下，怎么访问一个具体的插槽呢？ -->
+				<!-- 解决办法：给插槽起一个名字 -->
+				<slot name="left"><span>左边</span></slot>
+				<slot name="center"><span>中间</span></slot>
+				<slot name="right"><span>右边</span></slot>
+			</div>
+		</template>
+		<script type="text/javascript">	
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!'
+				},
+				components:{
+					cpn:{
+						template: '#cpns'
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

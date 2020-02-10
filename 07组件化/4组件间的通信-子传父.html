@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<!-- 父组件模板 -->
+		<div id="app">
+			<!-- 监听子组件发射的自定义事件,函数处理是在父组件中定义 -->
+			<!-- 这里不加参数,系统默认将子组件的参数传递 -->
+			<cpns @iclick="bitClick"></cpns>
+		</div>
+		<!-- 子组件模板 -->
+		<template id="cpndiv">
+			<div>
+				<button v-for="item in categories"
+					@click="itemclick(item)"
+				>{{item.name}}</button>
+			</div>
+		</template>
+		<script type="text/javascript">
+			// 子组件
+			const cpn = {
+				template: '#cpndiv',
+				data() {
+					return{
+						// 子组件展示的数据
+						categories:[
+							{id:'aaa', name:'数码家电'},
+							{id:'bbb', name:'热门推荐'},
+							{id:'ccc', name:'品牌家具'},
+							{id:'ddd', name:'精心挑选'}
+						]
+					}
+				},
+				methods:{
+					// 发生点击时调用,发射事件,子组件自定义事件,使用$emit发射给父组件
+					itemclick(item){
+						console.log(item);
+						//参数:iclick自定义事件名,item需要传递的参数
+						this.$emit('iclick',item);
+					}
+				},
+			}
+			// 父组件
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+				},
+				components:{
+					cpns: cpn,
+				},
+				methods:{
+					// 没有参数传递是,系统默认调用子组件传的参数
+					bitClick(item){
+						console.log("nihao",item);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

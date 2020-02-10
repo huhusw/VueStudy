@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{url}}
+			<!-- 以html的方式显示数据 -->
+			<h2 v-html="url">{{url}}</h2>
+		</div>		
+		<script type="text/javascript">
+			var app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+					url:'<a href="http://www.baidu.com">百度一下</a>'
+				}
+			});
+		</script>
+	</body>
+</html>

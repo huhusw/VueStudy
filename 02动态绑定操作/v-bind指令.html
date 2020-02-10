@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<style type="text/css">
+
+	</style>
+	<body>
+		<div id="app">
+			<!-- v-bind动态绑定数据,简写为冒号 -->
+			<img v-bind:src="imgurl" ><br>
+			<a v-bind:href="aUrl">百度一下</a><br>
+			<a :href="aUrl">百度一下</a>
+		</div>		
+		<script type="text/javascript">
+				const app = new Vue({
+					el:'#app	',
+					data:{
+						message:'helloworld!',
+						imgurl:'http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E7%89%87&hs=0&pn=8&spn=0&di=155650&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&ie=utf-8&oe=utf-8&cl=2&lm=-1&cs=2274554635%2C3865268142&os=3910942127%2C1960204471&simid=4235108139%2C628699126&adpicid=0&lpn=0&ln=30&fr=ala&fm=&sme=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F3801213fb80e7bec7d5660f12f2eb9389b506b15.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fkkz1_z%26e3Bkwt17_z%26e3Bv54AzdH3Fq7jfpt5gAzdH3Fbm0m0bnn_z%26e3Bip4s%3Fqks%3D6jswpj_q7jfpt5g_a&gsm=&islist=&querylist=',
+						aUrl:'http://www.baidu.com'
+					}
+				});
+		</script>
+	</body>
+</html>

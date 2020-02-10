@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<mycpn ref="cpn1"></mycpn>
+			<mycpn></mycpn>
+			<mycpn></mycpn>
+			<mycpn></mycpn>
+			<button type="button" @click="btn">按钮</button>
+		</div>
+		<template id="mcpn">
+			<div >
+				<h2>你好</h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!'
+				},
+				methods:{
+					btn(){
+						// $children是一个数组类型,每一个索引是一个子组件,可以直接访问子组件
+						// 但是不是很常用
+						console.log(this.$children);
+						this.$children[0].show();
+						// $refs是一个对象类型,也可以访问子组件,前提是子组件需要加上ref属性
+						// 世界使用$refs.cpn1这样的语法调用到子组件的数据和方法
+						console.log(this.$refs);
+						this.$refs.cpn1.show();
+					}
+				},
+				// 直接注册组件
+				components:{
+					mycpn: {
+						template:'#mcpn',
+						methods:{
+							show(){
+								console.log("show");
+							}
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

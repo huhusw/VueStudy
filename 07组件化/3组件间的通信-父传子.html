@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{message}}
+			<!-- 使用的时候绑定数据,绑定数据后在模板中使用 -->
+			<!-- 绑定数据后,vue才会将movies和message当成变量去寻找 -->
+			<cpns v-bind:cmovies="movies" v-bind:cmessage="message"></cpns>
+			<!-- 取消数据绑定,那么就会显示默认值 -->
+			<cpns v-bind:cmovies="movies"></cpns>
+		</div>
+		<template id="cpndiv">
+			<div>
+				{{cmovies}}
+				
+				<h2> {{cmessage}} </h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+			// 注册组件的语法糖，可以省略extend这个步骤
+			const cpn = {
+				// 模板抽离写法
+				// 通过id进行定位
+				template: '#cpndiv',
+				// 也可以直接进行定位
+				// template: cpndiv,
+				// 这是组件的数据，是一个函数，需要返回一个对象
+				// 这是为了组件开发出去后之间的数据不互通
+				data() {
+					return{}
+				},
+				// 组件的方法
+				methods:{
+					
+				},
+				// 父组件向子组件传递数据需要这个属性
+				// 可以是一个数组
+				// props:['cmovies','cmessage']
+				// 也可以是一个对象,但是需要指定变量的类型,也可以指定默认值
+				props:{
+					//需要指定类型,类型可以是固定的,例如数组,字符串等,还可以是用户自定义的类型
+					// cmovies: Array,
+					// 数组类型比较特殊,一般需要一个默认值,即使没有绑定数据
+					cmovies: {
+						type: Array,
+						default(){
+							return []
+						}
+					},
+					// 可以是一个对象,指定类型和默认值
+					cmessage: {
+						type: String,
+						default: 'aaaa',
+						// 这个是使用该组件时是否必须绑定数据
+						required: false
+					}
+				}
+			}
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+					movies: ['火影忍者','海王','少年的你']
+				},
+				components:{
+					cpns: cpn,
+				}
+			});
+		</script>
+	</body>
+</html>

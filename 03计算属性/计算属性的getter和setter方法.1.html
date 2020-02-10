@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<style type="text/css">
+
+	</style>
+	<body>
+		<!-- 为什么计算属性是函数，调用的时候却是调用的属性？计算属性的本质 -->
+		<div id="app">
+			<h2>{{lastname}} {{firstname}}</h2>
+			<h2>{{fullname}}</h2>
+		</div>		
+		<script type="text/javascript">
+				const app = new Vue({
+					el:'#app	',
+					data:{
+						firstname:'tom',
+						lastname:'bob'
+					},
+					//计算属性，也是一个属性，里面的是函数的形式，一般不加修饰动词
+					computed:{
+						// 这个是简写操作
+						fullname : function(){
+							return this.lastname + ' ' + this.firstname;
+						},
+						// 完整写法，一般来说不希望修改计算属性的值，所以set方法一般不使用，是一个只读属性
+						// 一般来说set方法需要一个参数
+						fullname1 : {
+							set : function(newValue){
+								
+							},
+							get : function(){
+								return this.lastname + ' ' + this.firstname;
+							}
+						}
+					},
+					methods:{
+						
+					}
+				});
+		</script>
+	</body>
+</html>

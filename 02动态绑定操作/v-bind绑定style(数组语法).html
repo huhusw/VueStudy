@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<style type="text/css">
+		.active{
+			color: red;
+		}
+	</style>
+	<body>
+		<!-- 组件化开发的时候使用到绑定style比较多 -->
+		<!-- 没加引号的时候，vue解析为变量，会去data中找变量名，加上引号才能当作字符串进行解析 -->
+		<div id="app">
+			<!-- []数组 -->
+			<h2 :style="[fontsize]">{{message}}</h2>
+		</div>		
+		<script type="text/javascript">
+				const app = new Vue({
+					el:'#app	',
+					data:{
+						message:'helloworld!',
+						fontsize : {fontSize:'50px'},
+					},
+					methods:{
+					}
+				});
+		</script>
+	</body>
+</html>

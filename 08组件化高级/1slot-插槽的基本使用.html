@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 显示默认值1 -->
+			<cpn></cpn>
+			<!-- 替换插槽标签 -->
+			<cpn><p>我是p标签</p></cpn>
+			<!-- 多个元素一起替换一个插槽 -->
+			<cpn>
+				<p>我是p标签</p>
+				<div>我是div元素</div>
+			</cpn>
+		</div>
+		<template id="cpns">
+			<div >
+				<h2>我是子组件</h2>
+				<!-- 插槽的存在是为了方便组件的拓展，每一个组件可以添加自己的东西 -->
+				<!-- 插槽可以使用默认值，当使用组件却没有替换插槽元素时，显示默认值 -->
+				<slot><button type="button">按钮</button></slot>
+			</div>
+		</template>
+		<script type="text/javascript">	
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!'
+				},
+				components:{
+					cpn:{
+						template: '#cpns'
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

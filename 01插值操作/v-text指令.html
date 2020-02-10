@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}},nihao</h2>
+			<!-- 将数据原封不动显示出来，并不进行处理 -->
+			<h2 v-pre>{{message}},nihao</h2>
+		</div>		
+		<script type="text/javascript">
+			var app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+				}
+			});
+		</script>
+	</body>
+</html>

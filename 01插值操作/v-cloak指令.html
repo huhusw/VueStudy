@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<style type="text/css">
+		/* 在解析完成之前不显示出来 */
+		[v-cloak]{
+			display: none;
+		}
+	</style>
+	<body>
+		<div id="app" v-cloak>
+			<!-- 在解析完成之前不显示出来 -->
+			<h2>{{message}}</h2>
+		</div>		
+		<script type="text/javascript">
+			// 在Vue解析之前，v-cloak属性存在
+			// 在Vue解析之后，v-cloak属性不存在
+			setTimeout(function(){
+				const app = new Vue({
+					el:'#app',
+					data:{
+						message:'helloworld!',
+					}
+				});
+			},1000)
+			
+		</script>
+	</body>
+</html>

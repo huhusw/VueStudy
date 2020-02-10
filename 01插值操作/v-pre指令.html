@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<h2>{{message}},nihao</h2>
+			<!-- 可以直接解析数据，并以字符串显示，但是会覆盖后面的数据 -->
+			<h2 v-text="message">,nihao</h2>
+		</div>		
+		<script type="text/javascript">
+			var app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+				}
+			});
+		</script>
+	</body>
+</html>

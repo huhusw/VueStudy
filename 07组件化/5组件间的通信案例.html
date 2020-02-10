@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<cpns 
+			:number1="num1" 
+			:number2="num2"
+			v-on:number1click11111="numclick1"
+			v-on:number1click22222="numclick2"></cpns>
+		</div>
+		<template id="cpndiv">
+			<div>
+				props的参数:{{number1}}<br>
+				data的参数:{{dnumber1}}<br>
+				<!-- v-model的实现是由一个绑定和一个事件监听完成的 -->
+				<!-- <input v-model="number1"/><br> -->
+				<!-- 这里的porps中的参数是父组件的,并不希望直接被子组件修改,应该修改的是子组件自己的参数 -->
+				<!-- 父组件的参数该怎么改呢? -->
+				<!-- 将父组件需要的数据直接传给父组件,自己去修改 -->
+				<input v-bind:value="dnumber1" @input="number1click()"/><br>	
+				props的参数:{{number2}}<br>
+				data的参数:{{dnumber2}}<br>
+				<!-- v-model的实现是由一个绑定和一个事件监听完成的 -->
+				<!-- <input v-model="number2"/> -->
+				<input v-bind:value="dnumber2" @input="number2click"/><br>
+			</div>
+		</template>
+		<script type="text/javascript">
+			const cpn = {
+				template: '#cpndiv',
+				data() {
+					return{
+						dnumber1:0,
+						dnumber2:1
+					}
+				},
+				methods:{
+					// 默认传入的是一个事件,既修改data参数的值,由传数据到父组件,使父组件修改自己的值
+					number1click(){
+						this.dnumber1 = event.target.value;
+						this.$emit('number1click11111',this.dnumber1);
+					},
+					number2click(){
+						this.dnumber2 = event.target.value;
+						this.$emit('number1click22222',this.dnumber2);
+						
+					}
+				},
+				props:{
+					number1:Number,
+					number2:Number
+				}
+			}
+			// 父组件
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+					num1: 0,
+					num2: 1
+				},
+				components:{
+					cpns: cpn,
+				},
+				methods:{
+					numclick1(value){
+						this.num1 = parseInt(value);
+					},
+					numclick2(value){
+						this.num2 = parseInt(value);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

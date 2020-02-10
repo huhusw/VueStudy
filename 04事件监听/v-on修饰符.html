@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	
+	<!-- 事件冒泡，阻止冒泡，点击按钮，只想按钮响应，div不会执行 -->
+	<div id="app" @click="divClick">
+		<!-- 使用stop修饰符阻止冒泡 -->
+		<button type="button" v-on:click.stop="btnClick">按钮</button>
+		
+		<!-- prevent阻止默认事件，在这里不怎么管用 -->
+		<form action="baidu">
+			<input type="submit" value="提交" v-on:click.prevent="submitClick">
+		</form>
+		<a href="http://www.baidu.com" v-on:click.prevent="submitClick">baiduyixia</a><br>
+			
+		<!-- 特定按键的点击事件 -->
+		<input type="text" @keyup="KeyUp" />
+	</div>
+		
+	<script src="vue.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		const app = new Vue({
+			el:'#app',
+			data:{
+				counter:0,
+			},
+			methods:{
+				btnClick:function(){
+					console.log("btnClick");
+				},
+				divClick(){
+					console.log("divClick");
+				},
+				submitClick:function(){
+					console.log("submitClick");
+				},
+				KeyUp(){
+					console.log("  123  ");
+				}
+			}
+		})
+	</script>
+		
+	</body>
+</html>

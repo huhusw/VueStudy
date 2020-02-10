@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 3.使用组件 -->
+			<!-- <my-cpn></my-cpn>
+			<my-cpn></my-cpn>
+			<my-cpn></my-cpn>
+			<my-cpn></my-cpn> -->
+			<cpnC></cpnC>
+			{{message}}
+		</div>
+		
+		<div id="app2">
+			<!-- <my-cpn></my-cpn> -->
+		</div>
+		<script type="text/javascript">	
+			// 1.创建组件构造器
+			// console.log("创建组件构造器");
+			const cpn = Vue.extend({
+				template: '<div><h2>你好</h2></div>',
+			})
+			// 2.注册组件(注册的是全局组件,vue实例对象都可以访问此组件,例如app2)
+			// Vue.component('my-cpn',cpn);
+			
+			
+			// 怎么进行局部组件注册呢?
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!'
+				},
+				// 局部组件注册,在components组件中注册
+				components: {
+					cpnC: 'cpn',
+				}
+					
+			});
+			
+			const app2 = new Vue({
+				el:'#app2',
+				data:{
+					
+				}
+			});
+		</script>
+	</body>
+</html>
