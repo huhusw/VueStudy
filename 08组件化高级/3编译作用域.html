@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app" v-if="isShow">
+			<!-- 这个isshow时app实例的 -->
+			<cpn v-if="isShow"></cpn>
+		</div>
+		<template id="cpns">
+			<div >
+				<h2>nihao</h2>
+				<!-- 这里的isshow是子件的作用域 -->
+				<h2 v-if="isShow">我是子组件</h2>
+			</div>
+		</template>
+		<script type="text/javascript">	
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+					isShow: true
+				},
+				components:{
+					cpn:{
+						template: '#cpns',
+						data(){
+							return{
+								isShow:false
+							}
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

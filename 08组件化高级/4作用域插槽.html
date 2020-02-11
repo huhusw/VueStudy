@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vueDemo</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<!-- 此插槽的作用是父组件调用子组件的数据，样式父组件自己定义 -->
+	<body>
+		<div id="app">
+			<!-- 调用默认显示方式 -->
+			<cpn></cpn>
+			<!-- 要是想修改一下显示方式，还用子组件的数据，还怎么改呢？ -->
+			<!-- 给子组件绑定data为pLanguages，这里再进行调用 -->
+			<cpn>
+				<!-- 将slot于此模板映射 templat标签在高版本的vue中可以使用其他标签代替-->
+				<!-- 使用slot绑定的data属性，调用子组件的数据 改成不同的样式-->
+				<template slot-scope="slot">
+					<span v-for="item in slot.abc">{{item}} - </span>
+				</template>
+			</cpn>
+		</div>
+		<template id="cpns">
+			<!-- 模板中默认的显示方式为ul和li -->
+			<div>
+				<slot :abc="pLanguages">
+					<ul>
+						<li v-for="item in pLanguages">{{item}}</li>
+					</ul>
+				</slot>
+			</div>
+		</template>
+		<script type="text/javascript">	
+			const app = new Vue({
+				el:'#app',
+				data:{
+					message:'helloworld!',
+				},
+				components:{
+					cpn:{
+						template: '#cpns',
+						data(){
+							return{
+								pLanguages:['C++','Java','Python','C'],
+							}
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
