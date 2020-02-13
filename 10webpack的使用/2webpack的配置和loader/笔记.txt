@@ -1,0 +1,56 @@
+每次运行项目都需要进行打包，繁琐的操作可以使用自动化的配置实现吗？
+当然可以，首先就是webpack打包命令的配置
+webpack.config.js文件时webpack的配置文件，里面的语法时commonJS
+
+webpack的配置需要node中的包,所以在项目路径下执行npm init命令,执行文件后生成package.json文件,里面是node的一些信息
+且可以根据此文件的依赖,使用npm install命令自动下载相应的包,下载的包会放在node_modules文件夹下
+
+开发中一般不适用webpack命令,使用较多的是npm run build和npm run serve等
+需要将webpack命令映射到其他命令,在package.json中的script中映射命令
+现在就可以使用npm run build映射webpack命令
+
+现在的webpack命令是全局的指令,但是在开发中的webpack不一定与全局的版本一致,所以在本地需要单独安装一个webpack
+使用npm install webpack --save-dev 安装本地webpack,且标注为开发时依赖
+现在有两个webpack,在命令行中使用的webpack是全局指令,在项目中会优先寻找本地的webpack命令
+
+
+
+开发时依赖:开发后不需要的依赖,例如webpack,打包后发布,就不要webpack了,在下载依赖的时候需要加上 --save-dev 命令
+运行时依赖:开发后会使用到的依赖,如Vue
+
+package.json
+{
+  "name": "meetwebpack",
+  "version": "1.0.0",
+  "description": "styduing",
+  "main": "webpack.config.js",
+  // 这里面映射的命令是由运行的顺序的,现在本项目寻找,再去全局寻找
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	// 映射命令
+    "build": "webpack"
+  },
+  "author": "huhusw",
+  "license": "ISC",
+  // 开发时依赖
+  "devDependencies": {
+    "webpack": "^4.41.6"
+  }
+}
+
+
+
+如果想使用webpack打包vue文件或者css文件怎么做呢？需要的就是相应的loader
+详情请看官网 中文文档： https://www.webpackjs.com/concepts/  看到相应的loader
+如果现在加一个样式style.css,需要的loader为style-loader和css-loader两个
+看官网的使用教程
+
+
+图片资源的加载
+需要使用到url-loader,其中的limit是限制资源的大小,小于该限制,直接加载成base64格式进行显示(可以在网页上直接查看到格式)
+如果资源大小大于limit,需要的是file-loader,这个loader不需要配置,直接使用即可
+但是发现并没有显示,且dist文件夹下多了一个图片文件,命名为32位哈希值,通过网页审查看以看到,引用了这个文件,但是引用的路径不是正确的
+导致图片资源找不到,那么现在要做的事是将图片资源找到并访问到,这需要一点配置
+在webpack.config.js文件的output中加上publicPath选项
+现在的dist文件夹下的图片资源的命名是我们不希望的,这种方式在文件多的时候并不是很有用
+配置此需求为在limit选项下加上一个name属性

@@ -1,0 +1,5 @@
+body{
+	/* background-color: aquamarine; */
+	/* 直接加img,并不能直接解析,需要使用url-loader,并添加配置 */
+	background: url(../img/git.jpg);
+}
