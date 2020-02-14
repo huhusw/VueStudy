@@ -2,13 +2,15 @@
 	<div>
 		<h2>{{message}}</h2>
 		<button type="button" @click="prin()">按钮</button>
+		<Cpns></Cpns>
 	</div>
 </template>
 
 <script>
+	import Cpn from "./Cpn"
 	export default{
 		// 不能加载name属性呀,会报错：sakdlalk is not defined at Module.<anonymous> (stem.js:1)
-		// but why
+		// but why？
 		// name:sakdlalk,
 		data(){
 			return{
@@ -19,6 +21,10 @@
 			prin(){
 				console.log("print");
 			}
+		},
+		// 注册子组件
+		components:{
+			Cpns:Cpn,
 		}
 	}
 </script>

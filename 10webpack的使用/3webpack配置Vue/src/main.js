@@ -1,5 +1,5 @@
 // 这个import并不管用,是什么问题呢?
-// import Vue from 'vue'
+import Vue from 'vue'
 
 // 2.抽离的版本
 // 4.移动到js文件中
@@ -44,6 +44,9 @@
 // 		}
 // 	}
 // })
+
+// 依赖css文件
+require('./css/normal.css')
 
 // 6.导入app.js的组件,注意路径问题,还是可以使用
 // import App from "./js/vue/app.js"

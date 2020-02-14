@@ -3,6 +3,10 @@
 
 // commonJS的模块导入导出,需求node的path包
 const path = require('path')
+// 导入版权插件的包
+const webpack =  require('webpack')
+// 导入打包插件
+const htmlwebpackplugin = require('html-webpack-plugin')
 
 // vue-loader的插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -19,7 +23,8 @@ module.exports = {
 		filename: 'stem.js',
 		// 此配置是打包url资源时,会自动加上一个 dist/ 也就是输出到dist文件夹下
 		// 那么大于limit的图片资源就可以直接找到,通过网页审查元素可以发现
-		publicPath: 'dist/'
+		// 插件使index.html文件打包后,此路径就不需要使用了
+		// publicPath: 'dist/'
 	},
 	// 在此进行loader的引用
 	module: {
@@ -56,13 +61,33 @@ module.exports = {
 	},
 	plugins: [
 		// make sure to include the plugin for the magic
-		new VueLoaderPlugin()
+		// 配置vue-loader插件
+		new VueLoaderPlugin(),
+		// 配置版权插件
+		new webpack.BannerPlugin("版权声明!!"),
+		// 打包插件的使用,此插件会自动打包index.html文件到dist
+		// 文件夹下,且自动添加打包后的js文件,如stem文件
+		// 但是生成的文件并不是我们想要的文件,例如需要添加一个叫app的div,这时需要模板进行生成
+		// 此路径下的index.html会作为模板传过来使用
+		new htmlwebpackplugin({
+				template:'index.html',
+			}),
+		
 	 ],
 	 resolve: {
+		 // 可以省略的拓展名
+		 extensions:[".js",".vue"],
 		 // alias别名
 		 alias:{
 			 // 为引用的vue起一个别名,import vue时会找别名文件
 			'vue$':'vue/dist/vue.esm.js'
 		 }
+	 },
+	 devServer:{
+		 // 指定服务的文件夹
+		 contentBase:'./dist',
+		 // 是否实时刷新
+		 inline: true,
+		 // port 指定端口号
 	 }
 }

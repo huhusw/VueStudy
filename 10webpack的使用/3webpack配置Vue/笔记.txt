@@ -62,5 +62,24 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 		new VueLoaderPlugin()
 	],
 }
+还是有问题,import Vue from "vue"现在是找不到的vue的
+所以还需要再index.html中引入vue.js文件
 
-那么
+下面来看一下插件,插件需要再webpack.config.js文件中定义,引用并使用
+再plugins属性中添加插件
+如版权插件 vue-loader插件等
+
+开发的版本最终发布的文件夹为dist,所以我们的index.html文件也需要打包进入dist文件夹
+需要一个插件去做这件事 npm install html-webpack-plugin --save-dev
+然后去引用此插件,并放入模板进行自动生成
+
+卧槽，使用了这个模板后，我的import Vue from 'vue'管用了，不用使用script标签引入vue.js文件了
+可是问题出在哪呢？
+那么属性还是使用不了
+
+
+搭建本地服务器进行开发
+使用命令npm install webpack-dev-server --save-dev 开发时依赖
+生效需要进行配置webpack.config.js，此命令为局部命令，所以再终端中无法直接使用，需要进行命令的映射
+修改package.json配置文件进行命令映射，npm run dev就可以跑出本地服务，调试完成后只需要进行一次build就可以发布
+"dev": "webpack-dev-server --open" 此命令会自动打开编译后的文件
