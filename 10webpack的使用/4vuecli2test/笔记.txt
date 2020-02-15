@@ -1,0 +1,43 @@
+vuecli2创建新项目的方式 vue init webpack 项目名称
+新建的时候会配置一些信息，例如描述、作者等，还有单元测试、端到端测试等，这里没有使用
+使用到了ESlint工具，用以规范代码
+下面时各个文件的介绍
+build和config是对项目的介绍
+src放的是源码
+static可以放置一些资源，打包的时候会完整的放置再dist文件夹下
+babelrc：是对浏览器的支持转换
+editorconfig：项目的剧本编辑配置
+eslintignore：不使用eslint规范的目录或者文件
+postcssrc：css转化时的配置
+index.html：生成的index模板
+package：依赖配置
+package-lock：依赖于版本的对应关系
+
+node可以直接执行js文件，无需浏览器，详情请查资料
+
+Eslint如果不想使用，可以再./config/index.js中修改变量useEslint为false即可
+
+
+创建他们之间的区别，只有一个main.js文件不一样，runtime-only中的main.js的样式是
+import Vue from 'vue'
+import App from './App'
+
+Vue.config.productionTip = false
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  render: h => h(App)
+  render: function (h){
+	return h(App);  
+  } 
+})
+
+runtime-compiler
+	运行过程：template ==(解析)> ast(抽象语法树) ==(编译)> render函数 ==(翻译)> virtual dom(虚拟dom树) ==(渲染)> UI
+runtime-only
+	运行过程：render函数 ==(翻译)> virtual dom(虚拟dom树) ==(渲染)> UI
+	template会被提前编译，使用的是vue-template-compiler
+所以相对比来说runtime-only的运行性能更高，代码更少
+
+其中的h是一个js函数createElement函数

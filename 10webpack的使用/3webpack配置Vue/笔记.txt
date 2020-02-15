@@ -83,3 +83,11 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 生效需要进行配置webpack.config.js，此命令为局部命令，所以再终端中无法直接使用，需要进行命令的映射
 修改package.json配置文件进行命令映射，npm run dev就可以跑出本地服务，调试完成后只需要进行一次build就可以发布
 "dev": "webpack-dev-server --open" 此命令会自动打开编译后的文件
+
+
+下面进行配置文件的分离，默认情况下webpack要去找webpack.config.js配置文件，但是只有一个配置文件的话会造成混乱
+例如开发配置和生产配置等混在一起，臃肿，所以可以进行分离
+新建build文件夹，放置配置文件，分为三个base pord dev 分别对应不同阶段的配置
+分离多个文件再读取的时候会出问题，还需要进行合并，需要一个工具npm install webpack-merge --save-dev
+接着进行合并，分别再pord和dev中合并base
+然后就是需要手动配置webpack的读取配置文件的文件路径，修改package.json文件
