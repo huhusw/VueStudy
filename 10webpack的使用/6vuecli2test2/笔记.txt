@@ -1,0 +1,23 @@
+使用路由的步骤
+	1.新建路由组件
+	2.配置组件之间和url之间的映射
+	3.使用路由，使用router-link和router-view标签
+	
+router-link是vue-rouer内置的标签,默认会被渲染成为a标签,
+	to:指定跳转的url
+	tag:指定渲染成什么组件
+	默认使用的pushState模式,浏览器的后退前进按钮是可以使用的,如果使浏览器的按钮失效,使用replaceState模式,添加一个replace属性即可
+	被点击的标签会自动添加两个class,默认的名称比较长,可以在审查元素中查看,如果想要修改,可以添加一个active-class属性指定其中一个class名称
+	也可以在新建router对象的时候添加linkactiveclass,进行命名
+	
+	除了router-link可以跳转外,其他的方法也能实现跳转,例如监听按钮点击,通过代码的方法修改路径
+router-view是占位的标签,最终渲染出来的显示页面会占据router-view所占的位置,且与一般的span p h标签同层级
+
+默认的路由怎么设置?
+在路径配置中添加一个默认路由重定向即可
+
+路径下拼接#什么的是hash模式
+可以设置vue-router对象中的mode属性为html5的hsitory模式
+
+动态路由
+路由的url可以动态获取并添加,例如User组件显示的时候想要显示User的ID  怎么做呢?

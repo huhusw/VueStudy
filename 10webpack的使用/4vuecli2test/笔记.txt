@@ -41,3 +41,18 @@ runtime-only
 所以相对比来说runtime-only的运行性能更高，代码更少
 
 其中的h是一个js函数createElement函数
+
+
+vue-router的使用
+安装npm install vue-router --save
+安装后在package.json文件中会多出来一个包的信息，然后多一个文件夹router，里面有一个index.js文件配置路由信息
+使用vue-router的步骤
+	1.通过vue.use(插件)，安装插件
+	2.新建vue-router对象
+	3.导出vue-router对象，导入到vue实例中
+	
+使用路由的步骤
+	1.新建路由组件
+	2.配置组件之间和url之间的映射
+	3.使用路由，使用router-link和router-view标签
+	

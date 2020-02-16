@@ -8,3 +8,6 @@
 10webpack的使用/5vuecli3test/dist
 10webpack的使用/5vuecli3test/.env.local
 10webpack的使用/5vuecli3test/.env.*.local
+10webpack的使用/6vuecli2test2/node_modules/
+10webpack的使用/6vuecli2test2/dist/
+10webpack的使用/6vuecli2test2/npm-debug.log*
