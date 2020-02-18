@@ -20,4 +20,62 @@ router-view是占位的标签,最终渲染出来的显示页面会占据router-v
 可以设置vue-router对象中的mode属性为html5的hsitory模式
 
 动态路由
+使用的形式,在配置路由的时候为路径设置一个形参,例如path: '/User/:userId',  userId就是一个形参,格式需要注意一下
 路由的url可以动态获取并添加,例如User组件显示的时候想要显示User的ID  怎么做呢?
+在vue-router对象中注册名称，在动态添加和使用
+
+路由懒加载
+随着代码量变大，build后生成的文件会越来越大，vue现在已经会将css和js文件进行分包管理，业务代码、底层支撑、第三方等
+但是加入路由以后会使某个js文件变得过大，用户进行请求的时候，网络不好什么原因导致屏幕变白或者变黑影响体验
+所以在加入路由后，url与组件之间映射，使用到组件时在进行加载，就是懒加载，可以提升用户体验
+懒加载策略下，需要将路由进行分割，一个路由对应一个js文件，build的时候就可以看到，懒加载的三种方式：
+	1.结合vue异步组件和webpack的代码
+	const home = resolve => { require.ensure([组件路径],() => { resolve(require(组件路径))})}
+	2.AMD写法
+	const About = resolve => require([组件路径],resolve)
+	3.ES6写法 箭头函数
+	const Home = () => import(组件路径)
+在index.js文件中使用上述写法，配置懒加载.
+
+
+路由嵌套 
+假设home页面下还有message和news怎么显示呢？
+在home路由下添加childer属性,配置响应的路由即可，注意路径问题
+在对应的父组件中显示子组件路由
+
+vue-router传递参数-query
+router-link的to属性还可以传递一个对象,使用对象进行传参
+<router-link :to="{path:'/profile',query:{name:'张三',age:17}}">档案</router-link>
+既然可以传参,那么也可以访问到参数,在需要的组件中使用
+		<h4>{{$route.path}}</h4>
+		<h4>{{$route.query}}</h4>
+访问参数
+现在可以使用router-link传递参数,如果不是router-link标签可以传参吗?可以,例如例子中的用户和档案
+
+route和router的区别?源码分析
+
+目前的所有对象都是vue实例的实现,所以往vue原型中添加属性在所有的对象中都可以访问到这个实现
+
+全局导航守卫
+作用:监听每次url的改变,从哪里跳到哪里
+需求:现在的标题是固定的,如果想要每次修改url的时候,标题也	会发生改变,怎么实现呢?
+方式1:
+	使用生命周期函数,懒加载,所以在调用组件时才会创建,所以可以重写create函数,在其中进行实现标题的改变
+	但是,组件变多的话,那么实现就会很麻烦,每一个组件都要实现一次,重复
+方式2:
+	使用全局导航守卫,在index.js文件中,调用vue-router对象的beforeEach函数,此函数有三个参数,详情可以看源码
+	想要修改title的值,那么需要实例中有title这个属性,to和from都是route对象,修改title的话,可以在路由对象中添加meta的title属性
+	document.title = to.meta.title;
+	但是路由嵌套的时候会出现问题,它会找最近的url的路由,所以会出现问题,
+	查看to对象发现,在matched属性中含有首页的信息,所以修改一下使用规则 document.title = to.matched[0].meta.title;
+	
+导航守卫的补充
+	beforeEach是前置守卫,afterEach是后置钩子,还有组件内单独内置的钩子函数和独享的钩子等,详情请见官方文档
+	
+记录当前的路由,跳转后还能跳转回来,可以使用组件内的导航守卫    
+
+keep-alive的使用，会使组件不会频繁的创建和销毁
+	<keep-alive>
+		<router-view></router-view>
+	</keep-alive>
+	可以使用声明周期函数去验证，它有两个很重要的属性，include和exclude，include会被缓存，exclude不会被缓存，使用的是正则表达式

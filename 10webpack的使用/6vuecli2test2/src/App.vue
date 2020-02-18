@@ -4,10 +4,17 @@
 	<router-link to="/home" tag="button" replace>首页</router-link>
 	<router-link to="/about" replace>关于</router-link>
 	<!-- v-bind绑定数据,动态改变路由url -->
-	<router-link :to="'/user/' + userId">用户</router-link>
+	<router-link :to="'/user/' + userId" replace>用户</router-link>
+	<!-- 可以使用对象传参,例如path,query等 -->
+	<router-link :to="{path:'/profile',query:{name:'张三',age:17}}" replace>档案</router-link>
+<!-- 	<button @click="userCli">用户</button>
+	<button @click="profileCli">档案</button> -->
 <!-- 	<button @click="homeCli">首页</button>
 	<button @click="aboutCli">关于</button> -->
-	<router-view></router-view>
+	<!-- 使用的是组件的name属性 -->
+	<keep-alive exclude="Profile">
+		<router-view></router-view>
+	</keep-alive>
 	<!-- $route是当前huoyue的路由url, 后面的userId是在path: '/User/:userId'中的定义,但是获取到的是下面顶顶的userId -->
 	{{$route.params.userId}}
   </div>
@@ -35,6 +42,20 @@ export default {
 		 //  this.$router.replace('/about');
 		 //  console.log("about click");
 	  // }
+		// 不同的传参方式
+		// userCli(){
+		// 	this.$router.push('/user/'+this.userId);
+		// },
+		// // 跟上对象传参
+		// profileCli(){
+		// 	this.$router.push({
+		// 		path:'/profile',
+		// 		query:{
+		// 			name:'lisi',
+		// 			age:18
+		// 		}
+		// 	});
+		// }
   }
 }
 </script>
