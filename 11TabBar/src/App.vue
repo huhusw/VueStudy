@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <tabbar>
+<!--    <tabbar>
       <tabbaritem path="/home" activeColor='blue'>
         <img slot='item-icon' src="./assets/img/tarbar/home.svg"/>
         <img slot='item-icon-active' src="./assets/img/tarbar/home_activity.svg"/>
@@ -21,20 +21,18 @@
         <img slot='item-icon-active' src="./assets/img/tarbar/profile_activity.svg"/>
         <div slot='item-text'>我的</div>
       </tabbaritem>
-    </tabbar>
-    <router-view></router-view>
+    </tabbar> -->
+    <maintabbar></maintabbar>
+
   </div>
 </template>
 
 <script>
-import tabbar from './components/tabbar/TabBar.vue'
-import tabbaritem from './components/tabbar/TabBarItem.vue'
+import maintabbar from './components/MainTabBar.vue'
 export default {
   name: 'App',
   components:{
-
-    tabbar,
-    tabbaritem
+    maintabbar
   }
 }
 </script>

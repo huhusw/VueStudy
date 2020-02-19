@@ -24,7 +24,7 @@
       },
       // 动态决定字体的颜色
       activeStyle(){
-        console.log(this.activeColor);
+        // console.log(this.activeColor);
         return this.isActive ? {color: this.activeColor} : {}
       }
     },
